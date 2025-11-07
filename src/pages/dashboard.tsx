@@ -262,63 +262,289 @@ export default function Dashboard() {
           {/* Overview Tab */}
           {activeTab === 'overview' && (
             <div>
-              <h2 className="text-3xl font-bold mb-6">บัญชีผู้ใช้</h2>
+              <h2 className="text-3xl font-bold mb-6">แก้ไขบัญชีผู้ใช้</h2>
 
-              {/* Profile Card */}
+              {/* Profile Section */}
               <div className="bg-gray-800 rounded-2xl p-6 mb-6 border border-gray-700">
-                <div className="flex items-center gap-6 mb-6">
-                  <div className="text-6xl">{userData.avatar}</div>
-                  <div className="flex-1">
-                    <h3 className="text-2xl font-bold mb-1">{userData.name}</h3>
-                    <p className="text-gray-400 mb-2">{userData.username}</p>
-                    <span className="inline-block bg-gradient-to-r from-pink-500 to-purple-500 px-4 py-1 rounded-full text-sm font-medium">
-                      {userData.plan}
-                    </span>
+                <h3 className="text-xl font-bold mb-4">โปรไฟล์</h3>
+
+                <div className="flex items-start gap-6 mb-6 pb-6 border-b border-gray-700">
+                  <div className="relative">
+                    <div className="text-8xl">{userData.avatar}</div>
+                    <button className="absolute bottom-0 right-0 bg-purple-600 hover:bg-purple-700 w-10 h-10 rounded-full flex items-center justify-center transition-all">
+                      <span className="text-xl">📷</span>
+                    </button>
                   </div>
-                  <button className="bg-purple-600 hover:bg-purple-700 px-6 py-3 rounded-lg font-medium transition-all">
-                    แก้ไขโปรไฟล์
-                  </button>
+
+                  <div className="flex-1">
+                    <div className="flex items-center gap-3 mb-2">
+                      <h4 className="text-2xl font-bold">{userData.name}</h4>
+                      <span className="inline-block bg-gradient-to-r from-pink-500 to-purple-500 px-3 py-1 rounded-full text-xs font-medium">
+                        {userData.plan}
+                      </span>
+                    </div>
+                    <p className="text-gray-400 mb-1">{userData.username}</p>
+                    <p className="text-sm text-gray-500">เข้าร่วมเมื่อ: 15 พฤศจิกายน 2024</p>
+                  </div>
                 </div>
 
                 <div className="grid md:grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-sm text-gray-400 mb-2">อีเมล</label>
-                    <input
-                      type="email"
-                      value={userData.email}
-                      className="w-full px-4 py-3 bg-gray-900 border border-gray-700 rounded-lg outline-none"
-                      readOnly
-                    />
-                  </div>
-                  <div>
                     <label className="block text-sm text-gray-400 mb-2">Username</label>
                     <input
                       type="text"
-                      value={userData.username}
-                      className="w-full px-4 py-3 bg-gray-900 border border-gray-700 rounded-lg outline-none"
-                      readOnly
+                      defaultValue={userData.username}
+                      className="w-full px-4 py-3 bg-gray-900 border border-gray-700 rounded-lg outline-none focus:border-purple-500 focus:ring-2 focus:ring-purple-500/50 transition-all"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm text-gray-400 mb-2">ชื่อที่แสดง</label>
+                    <input
+                      type="text"
+                      defaultValue={userData.name}
+                      className="w-full px-4 py-3 bg-gray-900 border border-gray-700 rounded-lg outline-none focus:border-purple-500 focus:ring-2 focus:ring-purple-500/50 transition-all"
+                    />
+                  </div>
+                  <div className="md:col-span-2">
+                    <label className="block text-sm text-gray-400 mb-2">Bio / คำอธิบาย</label>
+                    <textarea
+                      rows={3}
+                      defaultValue="สตรีมเมอร์เกมออนไลน์ ถ่ายทอดสดทุกวัน"
+                      className="w-full px-4 py-3 bg-gray-900 border border-gray-700 rounded-lg outline-none focus:border-purple-500 focus:ring-2 focus:ring-purple-500/50 transition-all"
                     />
                   </div>
                 </div>
               </div>
 
-              {/* Stats Overview */}
-              <div className="grid md:grid-cols-3 gap-6 mb-6">
-                <div className="bg-gradient-to-br from-purple-600 to-purple-800 rounded-2xl p-6">
-                  <div className="text-3xl mb-2">💰</div>
-                  <div className="text-2xl font-bold mb-1">฿12,450</div>
-                  <div className="text-purple-200">รายได้เดือนนี้</div>
+              {/* Account Management */}
+              <div className="bg-gray-800 rounded-2xl p-6 mb-6 border border-gray-700">
+                <h3 className="text-xl font-bold mb-4">จัดการบัญชี</h3>
+
+                <div className="space-y-4">
+                  {/* Email Verification */}
+                  <div className="flex items-center justify-between p-4 bg-gray-900 rounded-lg">
+                    <div className="flex items-center gap-3">
+                      <span className="text-2xl">📧</span>
+                      <div>
+                        <div className="font-medium">อีเมล</div>
+                        <div className="text-sm text-gray-400">{userData.email}</div>
+                      </div>
+                    </div>
+                    <div className="flex items-center gap-3">
+                      <span className="text-green-400 text-sm flex items-center gap-1">
+                        <span>✓</span> ยืนยันแล้ว
+                      </span>
+                      <button className="text-purple-400 hover:text-purple-300 text-sm">เปลี่ยน</button>
+                    </div>
+                  </div>
+
+                  {/* Phone Verification */}
+                  <div className="flex items-center justify-between p-4 bg-gray-900 rounded-lg">
+                    <div className="flex items-center gap-3">
+                      <span className="text-2xl">📱</span>
+                      <div>
+                        <div className="font-medium">เบอร์โทรศัพท์</div>
+                        <div className="text-sm text-gray-400">099-XXX-XX45</div>
+                      </div>
+                    </div>
+                    <div className="flex items-center gap-3">
+                      <span className="text-green-400 text-sm flex items-center gap-1">
+                        <span>✓</span> ยืนยันแล้ว
+                      </span>
+                      <button className="text-purple-400 hover:text-purple-300 text-sm">เปลี่ยน</button>
+                    </div>
+                  </div>
+
+                  {/* Password */}
+                  <div className="flex items-center justify-between p-4 bg-gray-900 rounded-lg">
+                    <div className="flex items-center gap-3">
+                      <span className="text-2xl">🔒</span>
+                      <div>
+                        <div className="font-medium">รหัสผ่าน</div>
+                        <div className="text-sm text-gray-400">••••••••</div>
+                      </div>
+                    </div>
+                    <button className="text-purple-400 hover:text-purple-300 text-sm">เปลี่ยนรหัสผ่าน</button>
+                  </div>
                 </div>
-                <div className="bg-gradient-to-br from-pink-600 to-pink-800 rounded-2xl p-6">
-                  <div className="text-3xl mb-2">👥</div>
-                  <div className="text-2xl font-bold mb-1">1,234</div>
-                  <div className="text-pink-200">ผู้สนับสนุน</div>
+              </div>
+
+              {/* Personal Information */}
+              <div className="bg-gray-800 rounded-2xl p-6 mb-6 border border-gray-700">
+                <h3 className="text-xl font-bold mb-4">ข้อมูลส่วนตัว</h3>
+
+                <div className="grid md:grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-sm text-gray-400 mb-2">ชื่อจริง</label>
+                    <input
+                      type="text"
+                      placeholder="กรอกชื่อจริง"
+                      className="w-full px-4 py-3 bg-gray-900 border border-gray-700 rounded-lg outline-none focus:border-purple-500 focus:ring-2 focus:ring-purple-500/50 transition-all"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm text-gray-400 mb-2">นามสกุล</label>
+                    <input
+                      type="text"
+                      placeholder="กรอกนามสกุล"
+                      className="w-full px-4 py-3 bg-gray-900 border border-gray-700 rounded-lg outline-none focus:border-purple-500 focus:ring-2 focus:ring-purple-500/50 transition-all"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm text-gray-400 mb-2">วันเกิด</label>
+                    <input
+                      type="date"
+                      className="w-full px-4 py-3 bg-gray-900 border border-gray-700 rounded-lg outline-none focus:border-purple-500 focus:ring-2 focus:ring-purple-500/50 transition-all"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm text-gray-400 mb-2">เพศ</label>
+                    <select className="w-full px-4 py-3 bg-gray-900 border border-gray-700 rounded-lg outline-none focus:border-purple-500 focus:ring-2 focus:ring-purple-500/50 transition-all">
+                      <option>เลือกเพศ</option>
+                      <option>ชาย</option>
+                      <option>หญิง</option>
+                      <option>ไม่ระบุ</option>
+                    </select>
+                  </div>
                 </div>
-                <div className="bg-gradient-to-br from-blue-600 to-blue-800 rounded-2xl p-6">
-                  <div className="text-3xl mb-2">📊</div>
-                  <div className="text-2xl font-bold mb-1">89</div>
-                  <div className="text-blue-200">การบริจาคเดือนนี้</div>
+              </div>
+
+              {/* Social Media Links */}
+              <div className="bg-gray-800 rounded-2xl p-6 mb-6 border border-gray-700">
+                <h3 className="text-xl font-bold mb-4">โซเชียลมีเดีย</h3>
+
+                <div className="space-y-4">
+                  <div>
+                    <label className="block text-sm text-gray-400 mb-2 flex items-center gap-2">
+                      <span className="text-lg">📘</span> Facebook
+                    </label>
+                    <input
+                      type="text"
+                      placeholder="https://facebook.com/username"
+                      className="w-full px-4 py-3 bg-gray-900 border border-gray-700 rounded-lg outline-none focus:border-purple-500 focus:ring-2 focus:ring-purple-500/50 transition-all"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-sm text-gray-400 mb-2 flex items-center gap-2">
+                      <span className="text-lg">📷</span> Instagram
+                    </label>
+                    <input
+                      type="text"
+                      placeholder="https://instagram.com/username"
+                      className="w-full px-4 py-3 bg-gray-900 border border-gray-700 rounded-lg outline-none focus:border-purple-500 focus:ring-2 focus:ring-purple-500/50 transition-all"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-sm text-gray-400 mb-2 flex items-center gap-2">
+                      <span className="text-lg">🎵</span> TikTok
+                    </label>
+                    <input
+                      type="text"
+                      placeholder="https://tiktok.com/@username"
+                      className="w-full px-4 py-3 bg-gray-900 border border-gray-700 rounded-lg outline-none focus:border-purple-500 focus:ring-2 focus:ring-purple-500/50 transition-all"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-sm text-gray-400 mb-2 flex items-center gap-2">
+                      <span className="text-lg">🐦</span> Twitter (X)
+                    </label>
+                    <input
+                      type="text"
+                      placeholder="https://twitter.com/username"
+                      className="w-full px-4 py-3 bg-gray-900 border border-gray-700 rounded-lg outline-none focus:border-purple-500 focus:ring-2 focus:ring-purple-500/50 transition-all"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-sm text-gray-400 mb-2 flex items-center gap-2">
+                      <span className="text-lg">🎮</span> Twitch
+                    </label>
+                    <input
+                      type="text"
+                      placeholder="https://twitch.tv/username"
+                      className="w-full px-4 py-3 bg-gray-900 border border-gray-700 rounded-lg outline-none focus:border-purple-500 focus:ring-2 focus:ring-purple-500/50 transition-all"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-sm text-gray-400 mb-2 flex items-center gap-2">
+                      <span className="text-lg">📺</span> YouTube
+                    </label>
+                    <input
+                      type="text"
+                      placeholder="https://youtube.com/@username"
+                      className="w-full px-4 py-3 bg-gray-900 border border-gray-700 rounded-lg outline-none focus:border-purple-500 focus:ring-2 focus:ring-purple-500/50 transition-all"
+                    />
+                  </div>
                 </div>
+              </div>
+
+              {/* Address Information */}
+              <div className="bg-gray-800 rounded-2xl p-6 mb-6 border border-gray-700">
+                <h3 className="text-xl font-bold mb-4">ที่อยู่</h3>
+
+                <div className="space-y-4">
+                  <div>
+                    <label className="block text-sm text-gray-400 mb-2">ที่อยู่</label>
+                    <textarea
+                      rows={2}
+                      placeholder="บ้านเลขที่, ซอย, ถนน"
+                      className="w-full px-4 py-3 bg-gray-900 border border-gray-700 rounded-lg outline-none focus:border-purple-500 focus:ring-2 focus:ring-purple-500/50 transition-all"
+                    />
+                  </div>
+
+                  <div className="grid md:grid-cols-2 gap-4">
+                    <div>
+                      <label className="block text-sm text-gray-400 mb-2">จังหวัด</label>
+                      <select className="w-full px-4 py-3 bg-gray-900 border border-gray-700 rounded-lg outline-none focus:border-purple-500 focus:ring-2 focus:ring-purple-500/50 transition-all">
+                        <option>เลือกจังหวัด</option>
+                        <option>กรุงเทพมหานคร</option>
+                        <option>เชียงใหม่</option>
+                        <option>ภูเก็ต</option>
+                      </select>
+                    </div>
+
+                    <div>
+                      <label className="block text-sm text-gray-400 mb-2">เขต/อำเภอ</label>
+                      <input
+                        type="text"
+                        placeholder="กรอกเขต/อำเภอ"
+                        className="w-full px-4 py-3 bg-gray-900 border border-gray-700 rounded-lg outline-none focus:border-purple-500 focus:ring-2 focus:ring-purple-500/50 transition-all"
+                      />
+                    </div>
+
+                    <div>
+                      <label className="block text-sm text-gray-400 mb-2">แขวง/ตำบล</label>
+                      <input
+                        type="text"
+                        placeholder="กรอกแขวง/ตำบล"
+                        className="w-full px-4 py-3 bg-gray-900 border border-gray-700 rounded-lg outline-none focus:border-purple-500 focus:ring-2 focus:ring-purple-500/50 transition-all"
+                      />
+                    </div>
+
+                    <div>
+                      <label className="block text-sm text-gray-400 mb-2">รหัสไปรษณีย์</label>
+                      <input
+                        type="text"
+                        placeholder="10XXX"
+                        className="w-full px-4 py-3 bg-gray-900 border border-gray-700 rounded-lg outline-none focus:border-purple-500 focus:ring-2 focus:ring-purple-500/50 transition-all"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Save Button */}
+              <div className="flex justify-end gap-4">
+                <button className="px-6 py-3 border border-gray-600 hover:border-gray-500 rounded-lg font-medium transition-all">
+                  ยกเลิก
+                </button>
+                <button className="px-8 py-3 bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 rounded-lg font-medium transition-all shadow-lg shadow-purple-500/50">
+                  บันทึกการเปลี่ยนแปลง
+                </button>
               </div>
             </div>
           )}
