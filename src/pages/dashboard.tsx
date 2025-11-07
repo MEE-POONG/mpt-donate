@@ -5,6 +5,7 @@ import { useState } from 'react';
 export default function Dashboard() {
   const [activeTab, setActiveTab] = useState('overview');
   const [sidebarOpen, setSidebarOpen] = useState(true);
+  const [showUserMenu, setShowUserMenu] = useState(false);
 
   // Mock user data
   const userData = {
@@ -13,6 +14,13 @@ export default function Dashboard() {
     email: 'gamer@example.com',
     plan: 'Creator Pro',
     avatar: '🎮'
+  };
+
+  const handleLogout = () => {
+    if (confirm('คุณต้องการออกจากระบบหรือไม่?')) {
+      alert('ออกจากระบบสำเร็จ!');
+      window.location.href = '/';
+    }
   };
 
   return (
@@ -42,12 +50,74 @@ export default function Dashboard() {
                 <span className="text-2xl">🔔</span>
                 <span className="absolute top-1 right-1 w-2 h-2 bg-red-500 rounded-full"></span>
               </button>
-              <div className="flex items-center gap-3 cursor-pointer hover:bg-gray-700 px-3 py-2 rounded-lg transition-all">
-                <div className="text-3xl">{userData.avatar}</div>
-                <div className="hidden sm:block">
-                  <div className="font-semibold">{userData.name}</div>
-                  <div className="text-sm text-gray-400">{userData.username}</div>
-                </div>
+
+              {/* User Dropdown */}
+              <div className="relative">
+                <button
+                  onClick={() => setShowUserMenu(!showUserMenu)}
+                  className="flex items-center gap-3 hover:bg-gray-700 px-3 py-2 rounded-lg transition-all"
+                >
+                  <div className="text-3xl">{userData.avatar}</div>
+                  <div className="hidden sm:block">
+                    <div className="font-semibold">{userData.name}</div>
+                    <div className="text-sm text-gray-400">{userData.username}</div>
+                  </div>
+                  <svg className="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                  </svg>
+                </button>
+
+                {/* Dropdown Menu */}
+                {showUserMenu && (
+                  <div className="absolute right-0 mt-2 w-56 bg-gray-800 rounded-xl shadow-xl border border-gray-700 overflow-hidden z-50">
+                    <div className="p-3 border-b border-gray-700">
+                      <div className="font-semibold">{userData.name}</div>
+                      <div className="text-sm text-gray-400">{userData.email}</div>
+                    </div>
+
+                    <div className="py-2">
+                      <button
+                        onClick={() => {
+                          setShowUserMenu(false);
+                          setActiveTab('overview');
+                        }}
+                        className="w-full flex items-center gap-3 px-4 py-2 hover:bg-gray-700 transition-all text-left"
+                      >
+                        <span className="text-lg">👤</span>
+                        <span>โปรไฟล์</span>
+                      </button>
+
+                      <button
+                        onClick={() => {
+                          setShowUserMenu(false);
+                          setActiveTab('plan');
+                        }}
+                        className="w-full flex items-center gap-3 px-4 py-2 hover:bg-gray-700 transition-all text-left"
+                      >
+                        <span className="text-lg">⚙️</span>
+                        <span>ตั้งค่า</span>
+                      </button>
+
+                      <a
+                        href="/"
+                        className="w-full flex items-center gap-3 px-4 py-2 hover:bg-gray-700 transition-all"
+                      >
+                        <span className="text-lg">🏠</span>
+                        <span>หน้าแรก</span>
+                      </a>
+                    </div>
+
+                    <div className="border-t border-gray-700">
+                      <button
+                        onClick={handleLogout}
+                        className="w-full flex items-center gap-3 px-4 py-3 hover:bg-red-600/20 text-red-400 hover:text-red-300 transition-all text-left"
+                      >
+                        <span className="text-lg">🚪</span>
+                        <span>ออกจากระบบ</span>
+                      </button>
+                    </div>
+                  </div>
+                )}
               </div>
             </div>
           </div>
@@ -758,6 +828,14 @@ export default function Dashboard() {
         <div
           className="fixed inset-0 bg-black/50 z-20 lg:hidden"
           onClick={() => setSidebarOpen(false)}
+        />
+      )}
+
+      {/* Overlay for user menu */}
+      {showUserMenu && (
+        <div
+          className="fixed inset-0 z-40"
+          onClick={() => setShowUserMenu(false)}
         />
       )}
     </div>
