@@ -107,6 +107,12 @@ export default function Home() {
                 >
                   ค้นหา Creator
                 </a>
+                <a
+                  href="#how-to-use"
+                  className="bg-gray-800/70 hover:bg-gray-700 px-8 py-4 rounded-full font-medium text-lg transition-all transform hover:scale-105 border-2 border-gray-700/70 text-center"
+                >
+                  เรียนรู้วิธีใช้งาน
+                </a>
               </div>
             </div>
 
