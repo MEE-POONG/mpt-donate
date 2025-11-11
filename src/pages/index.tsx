@@ -687,7 +687,7 @@ export default function Home() {
             </div>
 
             <div className="flex flex-wrap justify-center gap-6 text-sm text-gray-400 mb-4 md:mb-0">
-              <a href="#" className="hover:text-purple-500 transition-colors">นโยบายความเป็นส่วนตัว</a>
+              <a href="/privacy-policy" className="hover:text-purple-500 transition-colors">นโยบายความเป็นส่วนตัว</a>
               <span>|</span>
               <a href="#" className="hover:text-purple-500 transition-colors">เงื่อนไขการใช้งาน</a>
               <span>|</span>

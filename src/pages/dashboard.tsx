@@ -1049,6 +1049,31 @@ export default function Dashboard() {
         </main>
       </div>
 
+      {/* Footer */}
+      <footer className="bg-gray-950 py-6 border-t border-gray-800 lg:ml-64">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex flex-col md:flex-row justify-between items-center">
+            <div className="mb-3 md:mb-0">
+              <h3 className="text-lg font-bold bg-gradient-to-r from-purple-500 to-green-500 bg-clip-text text-transparent">
+                DonateNow
+              </h3>
+            </div>
+
+            <div className="flex flex-wrap justify-center gap-4 text-xs text-gray-400">
+              <a href="/privacy-policy" className="hover:text-purple-500 transition-colors">นโยบายความเป็นส่วนตัว</a>
+              <span>|</span>
+              <a href="#" className="hover:text-purple-500 transition-colors">เงื่อนไขการใช้งาน</a>
+              <span>|</span>
+              <a href="#" className="hover:text-purple-500 transition-colors">คำถามที่พบบ่อย</a>
+            </div>
+          </div>
+
+          <div className="text-center mt-4 text-xs text-gray-500">
+            © 2025 DonateNow. All rights reserved.
+          </div>
+        </div>
+      </footer>
+
       {/* Overlay for mobile sidebar */}
       {sidebarOpen && (
         <div
